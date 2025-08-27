@@ -1,0 +1,26 @@
+# Virtual Environment
+venv/
+*.venv
+env/
+.env
+.env 
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# IDE / Editor specific files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Logs
+*.log
