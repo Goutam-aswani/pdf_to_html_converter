@@ -3,8 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF to HTML Converter</title>
+    <title>PDF to HTML Converter Pro - Professional Document Processing</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
+        :root {
+            /* Light mode colors */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            --accent-primary: #3b82f6;
+            --accent-hover: #2563eb;
+            --accent-light: rgba(59, 130, 246, 0.1);
+            --border-color: #e2e8f0;
+            --shadow-light: rgba(0, 0, 0, 0.1);
+            --shadow-medium: rgba(0, 0, 0, 0.15);
+            --success-color: #10b981;
+            --error-color: #ef4444;
+            --warning-color: #f59e0b;
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-accent: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+        }
+
+        [data-theme="dark"] {
+            /* Dark mode colors */
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --accent-primary: #60a5fa;
+            --accent-hover: #3b82f6;
+            --accent-light: rgba(96, 165, 250, 0.15);
+            --border-color: #334155;
+            --shadow-light: rgba(0, 0, 0, 0.3);
+            --shadow-medium: rgba(0, 0, 0, 0.4);
+            --success-color: #34d399;
+            --error-color: #f87171;
+            --warning-color: #fbbf24;
+            --gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            --gradient-accent: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,146 +56,301 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background: #0a0a0a;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #ffffff;
-            position: relative;
             overflow-x: hidden;
         }
 
-        /* Animated background gradient */
+        /* Animated background */
         body::before {
             content: '';
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 25% 25%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 75% 75%, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
-            animation: gradientShift 15s ease-in-out infinite;
-            z-index: -1;
-        }
-
-        @keyframes gradientShift {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-
-        /* Floating particles animation */
-        body::after {
-            content: '';
-            position: absolute;
             width: 100%;
             height: 100%;
-            background-image: 
-                radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-            background-size: 100px 100px, 150px 150px, 200px 200px;
-            animation: float 20s ease-in-out infinite;
+            background: 
+                radial-gradient(circle at 25% 25%, var(--accent-light) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, var(--accent-light) 0%, transparent 50%);
+            animation: backgroundShift 20s ease-in-out infinite;
             z-index: -1;
+            opacity: 0.5;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            33% { transform: translateY(-10px) rotate(1deg); }
-            66% { transform: translateY(5px) rotate(-1deg); }
+        @keyframes backgroundShift {
+            0%, 100% { 
+                background: 
+                    radial-gradient(circle at 25% 25%, var(--accent-light) 0%, transparent 50%),
+                    radial-gradient(circle at 75% 75%, var(--accent-light) 0%, transparent 50%);
+            }
+            50% { 
+                background: 
+                    radial-gradient(circle at 75% 25%, var(--accent-light) 0%, transparent 50%),
+                    radial-gradient(circle at 25% 75%, var(--accent-light) 0%, transparent 50%);
+            }
         }
 
-        .container {
-            background: rgba(15, 15, 15, 0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
-            padding: 3rem 2.5rem;
-            text-align: center;
-            box-shadow: 
-                0 25px 50px -12px rgba(0, 0, 0, 0.8),
-                0 0 0 1px rgba(255, 255, 255, 0.05),
-                inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
-            max-width: 550px;
-            width: 90%;
-            position: relative;
-            transition: all 0.3s ease;
-        }
-
-        .container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: 24px;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
-            pointer-events: none;
-            z-index: -1;
-        }
-
+        /* Header */
         .header {
-            margin-bottom: 2.5rem;
-            position: relative;
+            background: var(--bg-primary);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 3px var(--shadow-light);
         }
 
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 4px;
-            background: linear-gradient(90deg, #6366f1, #8b5cf6, #06b6d4);
-            border-radius: 2px;
-            animation: pulse 2s ease-in-out infinite;
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 0.8; transform: translateX(-50%) scaleX(1); }
-            50% { opacity: 1; transform: translateX(-50%) scaleX(1.2); }
-        }
-
-        h1 {
-            font-size: 2.5rem;
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 50%, #cbd5e1 100%);
+            color: var(--accent-primary);
+            text-decoration: none;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            background: var(--gradient-primary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 0.75rem;
-            letter-spacing: -0.03em;
-            position: relative;
         }
 
-        .subtitle {
-            color: #94a3b8;
-            font-size: 1.125rem;
-            line-height: 1.7;
-            font-weight: 400;
-            max-width: 400px;
-            margin: 0 auto;
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
 
-        .upload-section {
-            margin: 3rem 0;
-            position: relative;
-        }
-
-        .file-input-wrapper {
-            position: relative;
-            display: inline-block;
+        .theme-toggle {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.625rem 1rem;
+            border-radius: 12px;
             cursor: pointer;
-            width: 100%;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 2px 4px var(--shadow-light);
         }
 
-        input[type="file"] {
+        .theme-toggle:hover {
+            background: var(--accent-primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--shadow-medium);
+        }
+
+        /* Main container */
+        .main-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            display: flex;
+            flex-direction: column;
+            min-height: calc(100vh - 80px);
+        }
+
+        /* Hero section */
+        .hero-section {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+            font-weight: 500;
+        }
+
+        .hero-description {
+            color: var(--text-muted);
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* Converter card */
+        .converter-card {
+            background: var(--bg-primary);
+            border-radius: 24px;
+            padding: 3rem 2.5rem;
+            box-shadow: 
+                0 20px 40px var(--shadow-light),
+                0 0 0 1px var(--border-color);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+            flex: 1;
+        }
+
+        .converter-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            border-radius: 24px 24px 0 0;
+        }
+
+        /* Features grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px var(--shadow-light);
+            border-color: var(--accent-primary);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gradient-accent);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.25rem;
+            box-shadow: 0 4px 12px var(--shadow-light);
+        }
+
+        .feature-text {
+            flex: 1;
+        }
+
+        .feature-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+            font-size: 1rem;
+        }
+
+        .feature-desc {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        /* Upload section */
+        .upload-section {
+            margin-bottom: 2rem;
+        }
+
+        .upload-area {
+            border: 2px dashed var(--border-color);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            background: var(--bg-secondary);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .upload-area::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--accent-light), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .upload-area:hover::before {
+            left: 100%;
+        }
+
+        .upload-area:hover {
+            border-color: var(--accent-primary);
+            background: var(--accent-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px var(--shadow-light);
+        }
+
+        .upload-area.dragover {
+            border-color: var(--accent-primary);
+            background: var(--accent-light);
+            transform: scale(1.02);
+        }
+
+        .upload-icon {
+            font-size: 3.5rem;
+            color: var(--accent-primary);
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 4px 8px var(--shadow-light));
+        }
+
+        .upload-text {
+            font-size: 1.25rem;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .upload-subtext {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .file-input {
             position: absolute;
             opacity: 0;
             width: 100%;
@@ -159,80 +358,46 @@
             cursor: pointer;
         }
 
-        .file-input-display {
-            background: rgba(20, 20, 20, 0.9);
-            border: 2px dashed rgba(148, 163, 184, 0.3);
-            border-radius: 16px;
-            padding: 2.5rem 2rem;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .file-input-display::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.1), transparent);
-            transition: left 0.6s ease;
-        }
-
-        .file-input-wrapper:hover .file-input-display::before {
-            left: 100%;
-        }
-
-        .file-input-wrapper:hover .file-input-display {
-            border-color: rgba(99, 102, 241, 0.6);
-            background: rgba(25, 25, 25, 0.95);
-            transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-        }
-
-        .file-icon {
-            font-size: 3rem;
-            margin-bottom: 1.25rem;
-            opacity: 0.9;
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
-        }
-
-        .file-text {
-            font-size: 1.125rem;
-            color: #f1f5f9;
-            margin-bottom: 0.5rem;
+        .browse-button {
+            background: var(--gradient-accent);
+            color: white;
+            border: none;
+            padding: 0.875rem 1.75rem;
+            border-radius: 12px;
+            font-size: 0.95rem;
             font-weight: 600;
-            letter-spacing: -0.01em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 12px var(--shadow-light);
         }
 
-        .file-subtext {
-            font-size: 0.9rem;
-            color: #94a3b8;
-            line-height: 1.5;
+        .browse-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--shadow-medium);
         }
 
-        .file-selected {
-            background: rgba(16, 185, 129, 0.15) !important;
-            border-color: rgba(16, 185, 129, 0.5) !important;
-            box-shadow: 0 0 20px rgba(16, 185, 129, 0.2) !important;
-        }
-
-        .selected-file-info {
-            display: none;
-            background: rgba(20, 20, 20, 0.9);
-            border: 1px solid rgba(16, 185, 129, 0.4);
+        /* File info */
+        .file-info {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: var(--bg-primary);
             border-radius: 16px;
-            padding: 1.75rem;
-            margin-top: 1.5rem;
-            position: relative;
-            animation: slideUp 0.3s ease;
+            border: 1px solid var(--success-color);
+            display: none;
+            animation: slideUp 0.4s ease;
+        }
+
+        .file-info.visible {
+            display: block;
         }
 
         @keyframes slideUp {
             from {
                 opacity: 0;
-                transform: translateY(10px);
+                transform: translateY(20px);
             }
             to {
                 opacity: 1;
@@ -240,30 +405,12 @@
             }
         }
 
-        .selected-file-info.visible {
-            display: block;
-        }
-
-        .selected-file-info::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: 16px;
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
-            pointer-events: none;
-        }
-
         .file-info-content {
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
-            gap: 1.25rem;
-            position: relative;
-            z-index: 1;
+            gap: 1rem;
         }
 
         .file-details {
@@ -274,74 +421,65 @@
             min-width: 0;
         }
 
-        .file-icon-small {
+        .file-icon-display {
             font-size: 1.5rem;
-            opacity: 0.9;
+            color: var(--success-color);
         }
 
         .file-name {
-            color: #10b981;
-            font-weight: 700;
-            font-size: 1rem;
-            word-break: break-all;
+            font-weight: 600;
+            color: var(--text-primary);
+            word-break: break-word;
             flex: 1;
-            text-align: left;
         }
 
         .file-size {
-            color: #94a3b8;
+            color: var(--text-muted);
             font-size: 0.875rem;
             white-space: nowrap;
-            font-weight: 500;
         }
 
-        .cancel-button {
-            background: rgba(239, 68, 68, 0.15);
-            color: #f87171;
-            border: 1px solid rgba(239, 68, 68, 0.4);
-            padding: 0.625rem 1.25rem;
-            border-radius: 10px;
+        .remove-button {
+            background: transparent;
+            color: var(--error-color);
+            border: 1px solid var(--error-color);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
             font-size: 0.875rem;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-weight: 600;
-            white-space: nowrap;
+            font-weight: 500;
         }
 
-        .cancel-button:hover {
-            background: rgba(239, 68, 68, 0.25);
-            border-color: rgba(239, 68, 68, 0.6);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(239, 68, 68, 0.2);
+        .remove-button:hover {
+            background: var(--error-color);
+            color: white;
         }
 
-        .file-input-display.disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            pointer-events: none;
-        }
-
-        button {
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+        /* Convert button */
+        .convert-button {
+            background: var(--gradient-primary);
             color: white;
             border: none;
-            padding: 1.125rem 2.5rem;
-            border-radius: 14px;
-            font-size: 1.05rem;
+            padding: 1.25rem 2.5rem;
+            border-radius: 16px;
+            font-size: 1.125rem;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 
-                0 8px 25px rgba(99, 102, 241, 0.4),
-                inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            display: none;
+            width: 100%;
+            margin-top: 2rem;
             position: relative;
             overflow: hidden;
-            margin-top: 2rem;
-            min-width: 220px;
-            letter-spacing: -0.01em;
+            box-shadow: 0 8px 24px var(--shadow-light);
         }
 
-        button::before {
+        .convert-button.visible {
+            display: block;
+        }
+
+        .convert-button::before {
             content: '';
             position: absolute;
             top: 0;
@@ -352,81 +490,109 @@
             transition: left 0.6s ease;
         }
 
-        button:hover::before {
+        .convert-button:hover:not(:disabled)::before {
             left: 100%;
         }
 
-        button:hover:not(:disabled) {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 
-                0 15px 35px rgba(99, 102, 241, 0.5),
-                inset 0 1px 0 0 rgba(255, 255, 255, 0.3);
+        .convert-button:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px var(--shadow-medium);
         }
 
-        button:active:not(:disabled) {
-            transform: translateY(-1px) scale(1.01);
-        }
-
-        button:disabled {
-            background: rgba(71, 85, 105, 0.4);
+        .convert-button:disabled {
+            opacity: 0.7;
             cursor: not-allowed;
             transform: none;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
-        button:disabled::before {
+        /* Status section */
+        .status-section {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .status-message {
+            padding: 1.25rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            display: none;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .status-message.visible {
+            display: block;
+            animation: slideUp 0.4s ease;
+        }
+
+        .status-success {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success-color);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .status-error {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--error-color);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .status-info {
+            background: var(--accent-light);
+            color: var(--accent-primary);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 1rem;
             display: none;
         }
 
-        #status {
-            margin-top: 2rem;
-            font-size: 1rem;
-            min-height: 28px;
-            padding: 1rem 1.25rem;
-            border-radius: 12px;
-            transition: all 0.4s ease;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
+        .progress-bar.visible {
+            display: block;
         }
 
-        #status:not(:empty) {
-            background: rgba(30, 30, 30, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-accent);
+            width: 0%;
+            animation: indeterminate 2s infinite;
         }
 
-        .processing #status {
-            color: #60a5fa;
-            background: rgba(59, 130, 246, 0.15);
-            border-color: rgba(59, 130, 246, 0.3);
+        @keyframes indeterminate {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
 
-        .success #status {
-            color: #34d399;
-            background: rgba(16, 185, 129, 0.15);
-            border-color: rgba(16, 185, 129, 0.3);
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 3rem;
         }
 
-        .error #status {
-            color: #f87171;
-            background: rgba(239, 68, 68, 0.15);
-            border-color: rgba(239, 68, 68, 0.3);
-        }
-
+        /* Loading spinner */
         .loading-spinner {
             display: none;
             width: 20px;
             height: 20px;
-            border: 2.5px solid rgba(255, 255, 255, 0.3);
+            border: 2px solid transparent;
+            border-top: 2px solid currentColor;
             border-radius: 50%;
-            border-top-color: #60a5fa;
             animation: spin 1s linear infinite;
+            margin-right: 0.5rem;
         }
 
-        .processing .loading-spinner {
+        .convert-button:disabled .loading-spinner {
             display: inline-block;
         }
 
@@ -434,107 +600,272 @@
             to { transform: rotate(360deg); }
         }
 
-        /* Mobile responsiveness */
-        @media (max-width: 640px) {
-            .container {
-                padding: 2rem 1.5rem;
-                margin: 1rem;
-                border-radius: 20px;
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
-            
-            .subtitle {
-                font-size: 1rem;
-            }
-
-            .file-input-display {
-                padding: 2rem 1.5rem;
-            }
-
-            .file-icon {
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .hero-title {
                 font-size: 2.5rem;
             }
 
-            button {
-                min-width: 180px;
-                padding: 1rem 2rem;
+            .main-container {
+                padding: 2rem 1rem;
+            }
+
+            .converter-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .upload-area {
+                padding: 2rem 1rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header-content {
+                padding: 0 1rem;
+            }
+
+            .file-info-content {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 1rem;
+            }
+
+            .file-details {
+                justify-content: center;
             }
         }
 
-        /* Dark scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 0.6s ease;
         }
 
-        ::-webkit-scrollbar-track {
-            background: rgba(15, 15, 15, 0.5);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: rgba(99, 102, 241, 0.5);
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(99, 102, 241, 0.7);
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
-    <div class="container" id="main-container">
-        <div class="header">
-            <h1>PDF to HTML Converter</h1>
-            <p class="subtitle">Transform your PDF documents into responsive HTML websites with professional styling and structure.</p>
+    <header class="header">
+        <div class="header-content">
+            <a href="#" class="logo">
+                <i class="fas fa-file-pdf"></i>
+                <span>PDF Converter Pro</span>
+            </a>
+            <div class="header-controls">
+                <button class="theme-toggle" id="theme-toggle">
+                    <i class="fas fa-moon" id="theme-icon"></i>
+                    <span id="theme-text">Dark Mode</span>
+                </button>
+            </div>
         </div>
+    </header>
 
-        <form id="upload-form">
-            <div class="upload-section">
-                <div class="file-input-wrapper">
-                    <input type="file" id="pdf-file-input" accept=".pdf" required>
-                    <div class="file-input-display">
-                        <div class="file-icon">📄</div>
-                        <div class="file-text">Choose PDF File</div>
-                        <div class="file-subtext">Click here or drag and drop your PDF file<br>Maximum file size: 5MB</div>
+    <main class="main-container">
+        <section class="hero-section">
+            <h1 class="hero-title">PDF to HTML Converter</h1>
+            <p class="hero-subtitle">Transform PDFs into responsive, professional web pages</p>
+            <p class="hero-description">
+                Upload any PDF document and convert it into beautiful, responsive HTML with preserved formatting, images, and interactive elements.
+            </p>
+        </section>
+
+        <div class="converter-card">
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="feature-text">
+                        <div class="feature-title">Responsive Design</div>
+                        <div class="feature-desc">Mobile-optimized output</div>
                     </div>
                 </div>
-                
-                <div class="selected-file-info" id="selected-file-info">
-                    <div class="file-info-content">
-                        <div class="file-details">
-                            <div class="file-icon-small">📄</div>
-                            <div class="file-name" id="file-name"></div>
-                            <div class="file-size" id="file-size"></div>
-                        </div>
-                        <button type="button" class="cancel-button" id="cancel-button">Remove</button>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-images"></i>
+                    </div>
+                    <div class="feature-text">
+                        <div class="feature-title">Image Preservation</div>
+                        <div class="feature-desc">All images extracted perfectly</div>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-table"></i>
+                    </div>
+                    <div class="feature-text">
+                        <div class="feature-title">Table Support</div>
+                        <div class="feature-desc">Structured data maintained</div>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="feature-text">
+                        <div class="feature-title">AI-Powered</div>
+                        <div class="feature-desc">Smart layout detection</div>
                     </div>
                 </div>
             </div>
-            
-            <button type="submit" id="upload-button">
-                <span class="loading-spinner"></span>
-                Convert & Download
-            </button>
-        </form>
-        
-        <div id="status"></div>
-    </div>
+
+            <form id="upload-form">
+                <div class="upload-section">
+                    <div class="upload-area" id="upload-area">
+                        <input type="file" id="pdf-file-input" class="file-input" accept=".pdf" required>
+                        <div class="upload-icon">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <div class="upload-text">Drag & drop your PDF here</div>
+                        <div class="upload-subtext">or click to browse files</div>
+                        <button type="button" class="browse-button">
+                            <i class="fas fa-folder-open"></i>
+                            Choose File
+                        </button>
+                    </div>
+
+                    <div class="file-info" id="file-info">
+                        <div class="file-info-content">
+                            <div class="file-details">
+                                <div class="file-icon-display">
+                                    <i class="fas fa-file-pdf"></i>
+                                </div>
+                                <div class="file-name" id="file-name"></div>
+                                <div class="file-size" id="file-size"></div>
+                            </div>
+                            <button type="button" class="remove-button" id="remove-button">
+                                <i class="fas fa-times"></i>
+                                Remove
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="convert-button" id="convert-button">
+                    <span class="loading-spinner"></span>
+                    <i class="fas fa-cogs"></i>
+                    Convert to HTML
+                </button>
+            </form>
+
+            <div class="status-section">
+                <div class="status-message" id="status-message"></div>
+                <div class="progress-bar" id="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 PDF Converter Pro. Powered by advanced AI technology for professional document conversion.</p>
+    </footer>
 
     <script>
+        // Theme management
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const themeText = document.getElementById('theme-text');
+
+        // Load saved theme or default to light
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        updateThemeUI(savedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeUI(newTheme);
+        });
+
+        function updateThemeUI(theme) {
+            if (theme === 'dark') {
+                themeIcon.className = 'fas fa-sun';
+                themeText.textContent = 'Light Mode';
+            } else {
+                themeIcon.className = 'fas fa-moon';
+                themeText.textContent = 'Dark Mode';
+            }
+        }
+
+        // File upload functionality
         const form = document.getElementById('upload-form');
         const fileInput = document.getElementById('pdf-file-input');
-        const uploadButton = document.getElementById('upload-button');
-        const statusDiv = document.getElementById('status');
-        const mainContainer = document.getElementById('main-container');
-        const fileInputDisplay = document.querySelector('.file-input-display');
-        const selectedFileInfo = document.getElementById('selected-file-info');
+        const uploadArea = document.getElementById('upload-area');
+        const fileInfo = document.getElementById('file-info');
         const fileName = document.getElementById('file-name');
         const fileSize = document.getElementById('file-size');
-        const cancelButton = document.getElementById('cancel-button');
+        const removeButton = document.getElementById('remove-button');
+        const convertButton = document.getElementById('convert-button');
+        const statusMessage = document.getElementById('status-message');
+        const progressBar = document.getElementById('progress-bar');
 
-        // Function to format file size
+        // Drag and drop functionality
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0 && files[0].type === 'application/pdf') {
+                fileInput.files = files;
+                handleFileSelect(files[0]);
+            } else {
+                showStatus('Please drop a valid PDF file.', 'error');
+            }
+        });
+
+        uploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFileSelect(e.target.files[0]);
+            }
+        });
+
+        removeButton.addEventListener('click', () => {
+            resetForm();
+        });
+
+        function handleFileSelect(file) {
+            // Validate file type
+            if (file.type !== 'application/pdf') {
+                showStatus('Please select a valid PDF file.', 'error');
+                return;
+            }
+
+            // Validate file size (50MB limit)
+            if (file.size > 50 * 1024 * 1024) {
+                showStatus('File size exceeds 50MB limit. Please choose a smaller file.', 'error');
+                return;
+            }
+
+            fileName.textContent = file.name;
+            fileSize.textContent = formatFileSize(file.size);
+            fileInfo.classList.add('visible');
+            convertButton.classList.add('visible');
+            uploadArea.style.display = 'none';
+            
+            hideStatus();
+        }
+
         function formatFileSize(bytes) {
             if (bytes === 0) return '0 Bytes';
             const k = 1024;
@@ -543,94 +874,12 @@
             return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
         }
 
-        // Function to show selected file
-        function showSelectedFile(file) {
-            fileName.textContent = file.name;
-            fileSize.textContent = formatFileSize(file.size);
-            selectedFileInfo.classList.add('visible');
-            fileInputDisplay.classList.add('file-selected');
-            fileInputDisplay.classList.add('disabled');
-        }
-
-        // Function to clear selected file
-        function clearSelectedFile() {
-            fileInput.value = '';
-            selectedFileInfo.classList.remove('visible');
-            fileInputDisplay.classList.remove('file-selected');
-            fileInputDisplay.classList.remove('disabled');
-            fileName.textContent = '';
-            fileSize.textContent = '';
-            statusDiv.textContent = '';
-            mainContainer.className = 'container';
-        }
-
-        // File input change handler
-        fileInput.addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                if (file.type !== 'application/pdf') {
-                    statusDiv.textContent = 'Please select a valid PDF file.';
-                    mainContainer.className = 'container error';
-                    clearSelectedFile();
-                    return;
-                }
-                
-                if (file.size > 10 * 1024 * 1024) { // 10MB limit
-                    statusDiv.textContent = 'File size must be less than 10MB.';
-                    mainContainer.className = 'container error';
-                    clearSelectedFile();
-                    return;
-                }
-                
-                showSelectedFile(file);
-                statusDiv.textContent = '';
-                mainContainer.className = 'container';
-            }
-        });
-
-        // Cancel button handler
-        cancelButton.addEventListener('click', function() {
-            clearSelectedFile();
-        });
-
-        // Drag and drop handlers
-        fileInputDisplay.addEventListener('dragover', function(e) {
-            e.preventDefault();
-            if (!fileInputDisplay.classList.contains('disabled')) {
-                fileInputDisplay.style.borderColor = 'rgba(99, 102, 241, 0.8)';
-                fileInputDisplay.style.backgroundColor = 'rgba(25, 25, 25, 0.95)';
-            }
-        });
-
-        fileInputDisplay.addEventListener('dragleave', function(e) {
-            e.preventDefault();
-            if (!fileInputDisplay.classList.contains('disabled')) {
-                fileInputDisplay.style.borderColor = '';
-                fileInputDisplay.style.backgroundColor = '';
-            }
-        });
-
-        fileInputDisplay.addEventListener('drop', function(e) {
-            e.preventDefault();
-            fileInputDisplay.style.borderColor = '';
-            fileInputDisplay.style.backgroundColor = '';
-            
-            if (!fileInputDisplay.classList.contains('disabled')) {
-                const files = e.dataTransfer.files;
-                if (files.length > 0) {
-                    fileInput.files = files;
-                    fileInput.dispatchEvent(new Event('change'));
-                }
-            }
-        });
-
-        // Form submission handler
+        // Form submission
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
 
             if (!fileInput.files || fileInput.files.length === 0) {
-                statusDiv.textContent = 'Please select a file first.';
-                mainContainer.className = 'container error';
+                showStatus('Please select a PDF file first.', 'error');
                 return;
             }
 
@@ -638,9 +887,9 @@
             const formData = new FormData();
             formData.append('file', file);
 
-            statusDiv.textContent = 'Uploading and processing... This may take a moment.';
-            mainContainer.className = 'container processing';
-            uploadButton.disabled = true;
+            showStatus('Processing your PDF... This may take a few moments.', 'info');
+            showProgress();
+            convertButton.disabled = true;
 
             try {
                 const response = await fetch('/api/v1/pdf-to-html/', {
@@ -650,7 +899,7 @@
 
                 if (!response.ok) {
                     const errorData = await response.json();
-                    throw new Error(errorData.detail || 'An unknown error occurred.');
+                    throw new Error(errorData.detail || 'Conversion failed. Please try again.');
                 }
 
                 // Handle the file download
@@ -659,7 +908,6 @@
                 const a = document.createElement('a');
                 a.style.display = 'none';
                 a.href = url;
-                // Suggest a filename for the download
                 const downloadFileName = file.name.replace(/\.pdf$/i, '.zip');
                 a.download = `converted_${downloadFileName}`;
                 document.body.appendChild(a);
@@ -667,16 +915,54 @@
                 window.URL.revokeObjectURL(url);
                 a.remove();
                 
-                statusDiv.textContent = 'Conversion successful! Download has started.';
-                mainContainer.className = 'container success';
+                showStatus('🎉 Conversion successful! Your download has started.', 'success');
+                
+                // Reset form after 3 seconds
+                setTimeout(() => {
+                    resetForm();
+                }, 3000);
 
             } catch (error) {
-                statusDiv.textContent = `Error: ${error.message}`;
-                mainContainer.className = 'container error';
-                console.error('Upload failed:', error);
+                showStatus(`❌ Error: ${error.message}`, 'error');
+                console.error('Conversion failed:', error);
             } finally {
-                uploadButton.disabled = false;
+                hideProgress();
+                convertButton.disabled = false;
             }
+        });
+
+        function showStatus(message, type) {
+            statusMessage.textContent = message;
+            statusMessage.className = `status-message status-${type} visible`;
+        }
+
+        function hideStatus() {
+            statusMessage.classList.remove('visible');
+        }
+
+        function showProgress() {
+            progressBar.classList.add('visible');
+        }
+
+        function hideProgress() {
+            progressBar.classList.remove('visible');
+        }
+
+        function resetForm() {
+            fileInput.value = '';
+            fileInfo.classList.remove('visible');
+            convertButton.classList.remove('visible');
+            uploadArea.style.display = 'block';
+            hideStatus();
+            hideProgress();
+        }
+
+        // Add entrance animations
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('.hero-section').classList.add('fade-in');
+            setTimeout(() => {
+                document.querySelector('.converter-card').classList.add('fade-in');
+            }, 200);
         });
     </script>
 </body>
